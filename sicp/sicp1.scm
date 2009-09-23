@@ -1,3 +1,8 @@
+(module sicp1 scheme
+  (provide (all-defined-out))
+
+  
+  (define nil null)
 ;;; SICP
 ;;; CHapter 1
 ; What are we studying?
@@ -92,7 +97,7 @@
 ;   of changes to the guess of the root are too large to result
 ;   in a change of only 1/1000 in the guessed square
 
-(define (new-sqrt number)
+(define (new-sqrt2 number)
   (define (improve guess)
     (avg guess (/ number guess)))
   (define (good-enough? guess)
@@ -243,7 +248,7 @@
 
 ; 1.14 Order of growth of make-change
 ; 1.15
-(define (cube x) (* x x x))
+(define (cube2 x) (* x x x))
 (define times 0)
 (define (p x)
   (set! times (+ times 1))
@@ -292,17 +297,17 @@
          (iter a b 0)))
 
 ; 1.19
-(define (fib n)
+(define (fib2 n)
   (fib-iter 1 0 0 1 n))
-(define (fib-iter a b p q count)
+(define (fib-iter2 a b p q count)
   (cond ((= count 0) b)
         ((even? count)
-         (fib-iter a
+         (fib-iter2 a
                    b
                    (+ (square p) (square q))
                    (+ (* 2 q p) (square q))
                    (/ count 2)))
-        (else (fib-iter (+ (* b q) (* a q) (* a p))
+        (else (fib-iter2 (+ (* b q) (* a q) (* a p))
                         (+ (* b p) (* a q))
                         p
                         q
@@ -387,7 +392,7 @@
 ; idea of speed determined by pure mathematical O(n).
 
 ; Ex. 1.23
-(define (smallest-divisor n)
+(define (smallest-divisor2 n)
   (local ((define (next-divisor n)
             (if (<= n 2)
                 3
@@ -403,16 +408,16 @@
 ; Ex. 1.24
 
 
-(define prime? prime?-simple)
-(define (search-for-primes min num)
+(define prime?2 prime?-simple)
+(define (search-for-primes2 min num)
   (cond ((= num 0) '())
-        ((prime? min)
+        ((prime?2 min)
          (cons min
-               (search-for-primes (+ min 2) (- num 1))))
+               (search-for-primes2 (+ min 2) (- num 1))))
         (else
-         (search-for-primes (+ min 2) num))))
+         (search-for-primes2 (+ min 2) num))))
 
-(define (exact-time f)
+(define (exact-time2 f)
   (let* ((start (current-milliseconds))
          (value (f)))
     (print (- (current-milliseconds) start))
@@ -478,7 +483,6 @@
 ; ()
 
 ;;; 1.3 Higher-order procedures
-(define (cube x) (* x x x))
 (define (1+ x) (+ 1 x))
 (define (identity x) x)
 
@@ -532,7 +536,7 @@
         (iter (next a) (* (term a) result))))
   (iter a 1))
 
-(define (factorial n)
+(define (factorial2 n)
   (product identity 1 1+ n))
 
 
@@ -552,11 +556,11 @@
 ; Ex 1.32
 ; a.
 (define (accumulate combiner null-value term a next b)
-  (let ((iter (lambda (a res)
-                (if (> a b)
-                    res
-                    (iter (next a)
-                          (combiner (term a) res))))))
+  (letrec ((iter (lambda (a res)
+                   (if (> a b)
+                       res
+                       (iter (next a)
+                             (combiner (term a) res))))))
     (iter a null-value)))
 
 (define (sum-acc term a next b)
@@ -690,7 +694,7 @@
     (iter (- k 1) k)))
 
 ; this is quite beautiful!
-(define (sqrt x)
+(define (sqrt2 x)
   (fixed-point (average-damp (lambda (y) (/ x y)))
                1.0))
 
@@ -717,7 +721,7 @@
        c)))
 
 ; Ex 1.41
-(define (double a)
+(define (double2 a)
   (lambda (b)
     (a (a b))))
 
@@ -735,7 +739,7 @@
         x
         ((repeated f (- n 1)) (f x)))))
 
-(define (repeated f n)
+(define (repeated2 f n)
   (letrec ((iter (lambda (composed n)
                    (if (< n 1)
                        (lambda (x) (composed x))
@@ -743,13 +747,13 @@
     (iter f (- n 1))))
 
 ; Ex 1.44
-(define (average . xs)
+(define (average2 . xs)
   (/ (apply + xs) (length xs)))
 
 (define (smooth f)
   (let ((dx 0.01))
     (lambda (x)
-      (average (f (- x dx))
+      (average2 (f (- x dx))
                (f x)
                (f (+ x dx))))))
 
@@ -757,7 +761,7 @@
   ((repeated smooth n) f))
 
 ; Ex 1.45
-(define (cube-root x)
+(define (cube-root2 x)
   (fixed-point (average-damp (lambda (y) (/ x (square y))))
                1.0))
 
@@ -772,3 +776,4 @@
                1.0))
 
 ; Ex 1.46
+  )

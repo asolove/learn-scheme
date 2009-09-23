@@ -1,6 +1,7 @@
+(module sicp2 scheme
+  (require "sicp1.scm")
+  
 ;;; Chapter 2: Building Abstractions with Data
-(load "sicp1.scm")
-
 ; Rational numbers
 ; Ex 2.1
 (define (rat-make n d)
@@ -65,6 +66,7 @@
 (define segment-p1 car)
 (define segment-p2 cdr)
 
+
 (define (segment-midpoint s)
   (make-point (average (point-x (segment-p1 s))
                        (point-x (segment-p2 s)))
@@ -96,11 +98,11 @@
      (point-y (rect-p1 r))))
 
 ; data layer 2:
-(define (make-rect point height base)
-  (list point height base))
-(define rect-point first)
-(define rect-height second)
-(define rect-base third)
+;(define (make-rect point height base)
+;  (list point height base))
+;(define rect-point first)
+;(define rect-height second)
+;(define rect-base third)
 
 ; Ex 2.4
 (define (cdr-funny cons)
@@ -184,52 +186,52 @@
 ; Ex 2.11
 (define interval-mult-simple interval-mult)
 
-(define (interval-mult i1 i2)
-  (let* ((low1 (interval-low i1))
-         (low2 (interval-low i2))
-         (high1 (interval-high i1))
-         (high2 (interval-high i2))
-         (interval-type (lambda (i)
-                          (cond ((> (interval-low i) 0) 'positive)
-                                ((< (interval-high i) 0) 'negative)
-                                (else 'mixed))))
-         (i1type (interval-type i1))
-         (i2type (interval-type i2)))
-
-    (cond ((and (eq? i1type 'positive)
-                (eq? i2type 'positive))
-           (make-interval (* low1 low2)
-                          (* high1 high2)))
-          ((and (eq? i1type 'negative)
-                (eq? i2type 'negative))
-           (make-interval (* high1 high2)
-                          (* low1 low2)))
-          ((and (eq? i1type 'positive)
-                (eq? i2type 'negative))
-           (make-interval (* high1 low2)
-                          (* low1 high2)))
-          ((and (eq? i1type 'negative)
-                (eq? i2type 'positive))
-           (make-interval (* high2 low1)
-                          (* high1 low2)))
-          ((and (eq? i1type 'positive)
-                (eq? i2type 'mixed))
-           (make-interval (* high1 low2)
-                          (* high1 high2)))
-          ((and (eq? i1type 'mixed)
-                (eq? i2type 'positive))
-           (make-interval (* high2 low1)
-                          (* high1 high2)))
-          ((and (eq? i1type 'negative)
-                (eq? i2type 'mixed))
-           (make-interval (* low1 high2)
-                          (* low1 low2)))
-          ((and (eq? i1type 'mixed)
-                (eq? i2type 'negative))
-           (make-interval (* low2 high1)
-                          (* low1 low2)))
-          (else
-           (interval-mult-simple i1 i2)))))
+;(define (interval-mult i1 i2)
+;  (let* ((low1 (interval-low i1))
+;         (low2 (interval-low i2))
+;         (high1 (interval-high i1))
+;         (high2 (interval-high i2))
+;         (interval-type (lambda (i)
+;                          (cond ((> (interval-low i) 0) 'positive)
+;                                ((< (interval-high i) 0) 'negative)
+;                                (else 'mixed))))
+;         (i1type (interval-type i1))
+;         (i2type (interval-type i2)))
+;
+;    (cond ((and (eq? i1type 'positive)
+;                (eq? i2type 'positive))
+;           (make-interval (* low1 low2)
+;                          (* high1 high2)))
+;          ((and (eq? i1type 'negative)
+;                (eq? i2type 'negative))
+;           (make-interval (* high1 high2)
+;                          (* low1 low2)))
+;          ((and (eq? i1type 'positive)
+;                (eq? i2type 'negative))
+;           (make-interval (* high1 low2)
+;                          (* low1 high2)))
+;          ((and (eq? i1type 'negative)
+;                (eq? i2type 'positive))
+;           (make-interval (* high2 low1)
+;                          (* high1 low2)))
+;          ((and (eq? i1type 'positive)
+;                (eq? i2type 'mixed))
+;           (make-interval (* high1 low2)
+;                          (* high1 high2)))
+;          ((and (eq? i1type 'mixed)
+;                (eq? i2type 'positive))
+;           (make-interval (* high2 low1)
+;                          (* high1 high2)))
+;          ((and (eq? i1type 'negative)
+;                (eq? i2type 'mixed))
+;           (make-interval (* low1 high2)
+;                          (* low1 low2)))
+;          ((and (eq? i1type 'mixed)
+;                (eq? i2type 'negative))
+;           (make-interval (* low2 high1)
+;                          (* low1 low2)))
+;          (else
+;           (interval-mult-simple i1 i2)))))
 
 (define (make-center-percent c p)
   (let* ((width (* c p))
@@ -246,10 +248,10 @@
   (/ (interval-width i)
      (interval-center i)))
 
-(define (interval-width i)
-  (/ (- (interval-high i)
-        (interval-low i))
-     2))
+;(define (interval-width i)
+;  (/ (- (interval-high i)
+;        (interval-low i))
+;     2))
 
 ; Ex 2.13
 ; tolerance of multiple roughly equals sum of
@@ -287,7 +289,6 @@
             (cc (- amount (car coins))
                 coins)))))
 
-(define us-coins '(50 25 10 5 1))
 (define uk-coins '(100 50 20 10 5 2 1 0.5))
 
 ; Ex 2.20
@@ -304,8 +305,8 @@
       (cons (square (car items))
             (square-list (cdr items)))))
 
-(define (square-list items)
-  (map (lambda (i) (* i i)) items))
+;(define (square-list items)
+;  (map (lambda (i) (* i i)) items))
 
 ; Ex 2.22
 ; This pattern of consing on answers while cdring down a list
@@ -435,7 +436,7 @@
 ;   (foldr ? ? (map ? ?)))
 ; idea: map recursive call to count-leaves to reduce each
 ; list to a number of leaves it has and each atom to 1.
-(define (count-leaves t)
+(define (count-leaves2 t)
   (foldr + 0
          (map (lambda (i)
                 (if (list? i)
@@ -444,11 +445,11 @@
               t)))
 
 ; Ex 2.36
-(define accumulate foldr)
+(define accumulate2 foldr)
 (define (accumulate-n op init seqs)
   (if (null? (car seqs))
       '()
-      (cons (accumulate op init (map car seqs))
+      (cons (accumulate2 op init (map car seqs))
             (accumulate-n op init (map cdr seqs)))))
 
 ; Ex 2.37
@@ -506,21 +507,116 @@
 
 ; Ex. 2.40 see pairs-under above
 
-; Ex. 2.41
-(define (triples-under n)
-  (foldr append '()
-         (foldr apped '() 
-                (map (lambda (j)
-                       (map (lambda (k)
-                              (list i j k))
-                            (enumerate-interval 1 (- j 1))))
-                     (enumerate-interval 1 (- i 1))))
-              (enumerate-interval 1 n))))
+;; Ex. 2.41
+;(define (triples-under n)
+;  (foldr append '()
+;         (foldr append '() 
+;                (map (lambda (j)
+;                       (map (lambda (k)
+;                              (list i j k))
+;                            (enumerate-interval 1 (- j 1))))
+;                     (enumerate-interval 1 (- i 1))))
+;              (enumerate-interval 1 n)))
+;
+;(define (sum= s)
+;  (lambda (l)
+;    (= (apply + l) s)))
+;
+;(define (triples-with-sum-of s n)
+;  (filter (sum= s)
+;          (triples-under n)))
 
-(define (sum= s)
-  (lambda (l)
-    (= (apply + l) s)))
+; 2.3 Symbolic Data
+(define (deriv exp var)
+  (cond ((number? exp) 0)
+        ((variable? exp)
+         (if (same-variable? exp var) 1 0))
+        ((sum? exp)
+         (make-sum (deriv (augend exp) var)
+                   (deriv (addend exp) var)))
+        ((product? exp)
+         (let ([m1 (multiplicand exp)]
+               [m2 (multiplier exp)])
+           (make-sum (make-product m2 (deriv m1 var))
+                     (make-product m1 (deriv m2 var)))))
+        ((exponentiation? exp)
+         (let ([base (exponent-base exp)]
+               [exponent (exponent-exponent exp)])
+           (make-product exponent
+                         (make-product (make-exponent base (make-sum exponent -1))
+                                       (deriv base var)))))
+        (else (error "Unknown expression type in deriv" exp))))
 
-(define (triples-with-sum-of s n)
-  (filter (sum= s)
-          (triples-under n)))
+(define (variable? exp) (symbol? exp))
+(define (same-variable? v1 v2) (eq? v1 v2))
+(define (sum? exp) (and (cons? exp) (eq? (car exp) '+)))
+(define (product? exp) (and (cons? exp) (eq? (car exp) '*)))
+
+(define (make-sum exp1 exp2) (list '+ exp1 exp2))
+(define augend cadr)
+(define (addend exp)
+  (let ([addend-part (cddr exp)])
+    (if (null? (cdr addend-part))
+        (car addend-part)
+        (cons '+ addend-part))))
+  
+(define (make-product exp1 exp2) (list '* exp1 exp2))
+(define multiplicand cadr)
+(define (multiplier exp)
+  (let ([multiplier-part (cddr exp)])
+    (if (null? (cdr multiplier-part))
+        (car multiplier-part)
+        (cons '* multiplier-part))))
+
+(define (simplify exp)
+  (cond [(exponentiation? exp) 
+         (let ([base (simplify (exponent-base exp))]
+               [exponent (simplify (exponent-exponent exp))])
+           (cond [(eq? base 1) 1]
+                 [(eq? exponent 0) 1]
+                 [(eq? exponent 1) base]
+                 [else (make-exponent base exponent)]))]
+        [(product? exp)
+         (let ([m1 (simplify (multiplier exp))]
+               [m2 (simplify (multiplicand exp))])
+           (cond [(eq? m1 0) 0]
+                 [(eq? m2 0) 0]
+                 [(eq? m1 1) m2]
+                 [(eq? m2 1) m1]
+                 [(and (number? m1) (number? m2)) (* m1 m2)]
+                 [else (make-product m1 m2)]))]
+        [(sum? exp)
+         (let ([a1 (simplify (addend exp))]
+               [a2 (simplify (augend exp))])
+           (cond [(eq? a1 0) a2]
+                 [(eq? a2 0) a1]
+                 [(and (number? a1) (number? a2)) (+ a1 a2)]
+                 [(eq? a1 a2) (make-product 2 a1)]
+                 [else (make-sum a1 a2)]))]
+        [(variable? exp) exp]
+        [(number? exp) exp]
+        [else (error "invalid exp" exp)]))
+  
+  ; Exp 2.56
+  (define (exponentiation? e)
+    (and (cons? e) (eq? (car e) '**)))
+  (define (make-exponent b n)
+    (list '** b n))
+  
+  (define exponent-base cadr)
+  (define exponent-exponent caddr)
+  
+  ;; Ex 2.58
+  (define operations '(** * +))
+  
+  (define (find-rest atom lst)
+    (cond [(null? lst) nil]
+          [(eq? (car lst) atom) (cdr lst)]
+          [else (find-rest atom (cdr lst))]))
+  
+  (define (highest-operation exp)
+    (define (iter exp ops)
+      (let* ([op (car exp)]
+             
+  
+ )

@@ -1,0 +1,6 @@
+#lang scheme/base
+  
+(require (planet untyped/dispatch)
+         "site.ss")
+
+(serve/dispatch site)
