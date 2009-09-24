@@ -622,9 +622,9 @@
               (iter (cdr lst) (+ 1 i)))))
   (iter lst 0))
 
-(define (in-list a l)
+(define (match-in-list f a l)
   (cond ((null? l) #f)
-        ((eq? (car l) a) #t)
-        (else (in-list a (cdr l)))))
+        ((f (car l) a) #t)
+        (else (match-in-list f a (cdr l)))))
 
 )
