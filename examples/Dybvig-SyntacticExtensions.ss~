@@ -1,9 +1,0 @@
-(define-syntax my-or
-  (syntax-rules ()
-    [(_) #f]
-    [(_ e) e]
-    [(_ e1 e2 ...)
-     (let ([t e1])
-       (if t 
-           t
-           (my-or e2 ...)))]))

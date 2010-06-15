@@ -1,0 +1,12 @@
+#lang scheme
+
+(define make-tree list)
+(define entry car)
+(define left cadr)
+(define right caddr)
+(define (fringe? s)
+  (and (null? (left s)) (null? (right s))))
+
+(define (union-set s1 s2)
+  (cond ((and? (null? s1) (null? s2)) '())
+        ((and? (number? s1)
